@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Speech to text converter in JS</title>
+<style type="text/css">
+			body{
+				font-family: verdana;
+			}
+			#result{
+				height: 200px;
+				border: 1px solid #ccc;
+				padding: 10px;
+				box-shadow: 0 0 10px 0 #bbb;
+				margin-bottom: 30px;
+				font-size: 14px;
+				line-height: 25px;
+			}
+			button{
+				font-size: 20px;
+				position: absolute;
+				top: 240px;
+				left: 50%;
+			}
+		</style>
+</head>
+<body onload="startConverting();">
+<h4 align="center">COMPOSE MAIL</h4>
+<form action="sample.html">
+	<label for="fromsection">From address</label><br><br>
+	<input type="text" id="fromsection" name="fromsection"  placeholder="ENTER FROM ADDRESS HERE"><br><br>
+	<label for="tosection">To address</label><br><br>
+	<textarea id="tosection" rows="5" cols="30" placeholder="ENTER TO ADDRESS HERE"></textarea>
+	<label for="contentsection">Content</label><br><br>
+	<textarea id="contentsection" rows="10" cols="30" placeholder="ENTER CONTENT HERE"></textarea>
+<div id="result"></div>
+<i class="fa fa-microphone"></i></button>
+<script type="text/javascript">
+
+			var r = document.getElementById('contentsection');
+			var d = document.getElementById('result');
+
+			function startConverting () {
+				if('webkitSpeechRecognition' in window){
+					var speechRecognizer = new webkitSpeechRecognition();
+					speechRecognizer.continuous = true;
+					speechRecognizer.interimResults = true;
+					speechRecognizer.lang = 'en-IN';
+					speechRecognizer.start();
+
+					var finalTranscripts = '';
+
+					speechRecognizer.onresult = function(event){
+						var interimTranscripts = '';
+						for(var i = event.resultIndex; i < event.results.length; i++){
+							var transcript = event.results[i][0].transcript;
+							transcript.replace("\n", "<br>");
+							if(event.results[i].isFinal){
+								finalTranscripts += transcript;
+							}else{
+								interimTranscripts += transcript;
+							}
+						}
+						r.innerHTML = finalTranscripts + interimTranscripts;
+						d.innerHTML = finalTranscripts + '<span style="color:#999">' + interimTranscripts + '</span>';
+
+					};
+					speechRecognizer.onerror = function (event) {
+					};
+				}else{
+					r.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
+					d.innerHTML = 'Your browser is not supported. If google chrome, please upgrade!';
+
+				}
+			}
+
+			
+
+		</script>
+		</body>
+</html>
