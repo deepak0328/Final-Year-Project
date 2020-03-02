@@ -1,0 +1,47 @@
+Configutation:
+  name: Default
+  Properties:
+    Property:
+      - name: log-path
+        value: "./src/main/log"
+      - name: file-name
+        value: "cos-webapp"    
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%d{dd.MM.yyyy HH:mm:ss} *%-5p* %c{1}: %m (%F, line %L)%n"
+    RollingFile:
+      - name: RollingFile_Appender
+        fileName: ${log-path}/${file-name}.log
+        filePattern: "${log-path}/${file-name}.%d{yyyy-MM-dd}.gz"
+        PatternLayout:
+          pattern: "%d{dd.MM.yyyy HH:mm:ss} *%-5p* %c{1}: %m (%F, line %L)%n"
+        Policies:
+          TimeBasedTriggeringPolicy:
+            interval: 1
+        DefaultRollOverStrategy:
+          max: 30
+  Loggers:
+      Root:
+        level: debug
+        AppenderRef:
+          - ref: Console_Appender
+      Logger:
+        - name: net.voicemail
+          additivity: false
+          level: debug
+          AppenderRef:
+            - ref: Console_Appender
+              level: debug
+            - ref: RollingFile_Appender
+              level: debug
+        - name: org.hibernate
+          additivity: false
+          level: debug
+          AppenderRef:
+            - ref: Console_Appender
+              level: debug
+            - ref: RollingFile_Appender
+              level: debug

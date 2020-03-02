@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="menu/layout">
+<body>
+
+	<div layout:fragment="content">
+
+
+		<div class="container-fluid mt-8">
+			<div class="bg">
+				<div class="container-fluid">
+					<div class="row bb mt-2">
+						<div class="col-md-6 col-sm-12 p-0 ">
+							<h5 class="pt-1 mb-0">Edit Menu</h5>
+						</div>
+
+					</div>
+
+					<div class="row  d-flex justify-content-center mt-4">
+
+						<form class="col-md-6  mt-5" th:object="${editFoodMenu}"
+							th:action="@{/menu/new}" method="post">
+
+							<input type="hidden" th:field="*{foodMenuId}"> <input
+								type="hidden" class="form-control" id="createdDate"
+								th:field="*{foodMenuCreatedDate}"> <input type="hidden"
+								class="form-control" id="modifiedDate"
+								th:field="*{foodMenuModifiedDate}">
+
+
+							<div class="form-group row ml-md-8 mt-5">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Menu
+									Name</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control"
+										th:field="*{foodMenuName}">
+
+								</div>
+							</div>
+							<div class="form-group row ml-md-8">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Menu
+									Status</label>
+								<div class="col-sm-5">
+									<select class="form-control" th:field="*{foodMenuStatus}">
+										<option th:value="available" th:text="available"></option>
+										<option th:value="unavailable" th:text="unavailable"></option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-10 text-center pb-4">
+								<div class="form-group">
+									<button type="submit" class="btn btn-success btn-pm  md-margin">
+										<i class="fas fa-check"></i> Submit
+									</button>
+									<button type="reset" class="btn btn-info ml-3 btn-pm">
+										<i class="fas fa-minus-circle"></i> Reset
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+
+</html>

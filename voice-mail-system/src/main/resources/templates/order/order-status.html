@@ -1,0 +1,141 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="order/layout">
+<body>
+
+	<div layout:fragment="content">
+		<div class="container-fluid mt-8">
+
+
+			<div class="container-fluid">
+				<div class="row mt-2">
+					<div class="bb row">
+						<div class="col-12 px-4 ">
+							<h5 class="pt-1 mb-0">View order</h5>
+						</div>
+
+					</div>
+
+					<div class="col-12 row">
+						<div class="col-4 row">
+							<div class="col-12">
+								OrderId<span class="pl-4"><span
+									th:text="${order.orderId}"></span></span>
+							</div>
+							<div class="col-12 row">
+								<div class="col-4">
+									Location<span class="pl-4"><span
+										th:text="${order.location}"></span></span>
+								</div>
+							</div>
+							<div class="col-12 row">
+								<div class="col-4">Order Status</div>
+
+								<b><span class="pl-4"><span
+										th:text="${order.orderStatus}"></span></span></b>
+
+							</div>
+						</div>
+
+						<div class="col-4 row">
+							<div class="col-12 row">
+
+								Order Time<span class="col-6"><span
+									th:text="${#dates.format(order.orderTime,'dd-MM-yyyy HH:mm')}" /></span></span>
+							</div>
+
+							<div class="col-12 row">
+
+
+								Delivery Time<span class="col-6"><span
+									th:text="${#dates.format(order.deliveryTime,'dd-MM-yyyy HH:mm')}" /></span></span>
+
+
+							</div>
+						</div>
+
+
+
+
+
+
+
+
+						<div class="col-12 p-0 box-s">
+							<div class="container-fluid">
+								<div class="row headtb mt-2">
+									<div class="col-md-12 col-sm-12 col-12 p-0">
+										<h5 class="pt-1 text-md-left">Food Items</h5>
+									</div>
+
+								</div>
+							</div>
+
+
+							<div class="tb">
+								<table class="table vertical-table bb">
+									<thead>
+										<tr>
+											<th style="width: 10%" scope="col">ID</th>
+											<th style="width: 20%"><a class="sorted sortable black1"
+												scope="col ">Item Name</a></th>
+											<th style="width: 30%" scope="col">Quantity</th>
+											<th style="width: 30%" scope="col">Price</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="fooditem : ${foodItemList}">
+											<td th:text="${fooditem.orderFoodItemDtoId}"></td>
+											<td th:text="${fooditem.orderFoodItemDtoName}"></td>
+											<td th:text="${fooditem.orderFoodItemDtoSelectedQuantity}"></td>
+											<td th:text="${fooditem.orderFoodItemDtoSelectedPrice}"></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+
+											<td class="pl-0">Total <span class="pl-2"
+												th:text="${order.totalCost}"></span></td>
+
+										</tr>
+
+									</tbody>
+
+								</table>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="pagination1 mb-md-5 ">
+						<div class="text-center ">
+							<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+							<ul class="pagination ">
+								<li class="disabled "><span><span
+										aria-hidden="true ">«</span></span></li>
+								<li class="disabled "><span><span
+										aria-hidden="true ">‹</span></span></li>
+								<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+								</li>
+								<li><a href="# ">2</a></li>
+								<li><a href="# " aria-label="Next "> <span
+										aria-hidden="true ">›</span></a></li>
+								<li><a href="# " aria-label="Latest "> <span
+										aria-hidden="true ">»</span></a></li>
+							</ul>
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>

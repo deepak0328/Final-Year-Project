@@ -1,0 +1,79 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="delivery/layout">
+<body>
+
+	<div layout:fragment="content">
+		<div class="container-fluid mt-8">
+
+
+
+			<div class=" box-s">
+
+				<div class="container-fluid">
+					<div class="row headtb mt-2">
+						<div class="col-12 p-0">
+							<h5 class="pt-1 text-md-left">Past Orders</h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="tb">
+					<table class="table vertical-table">
+						<thead>
+							<tr>
+								<th style="width: 10%" scope="col">ID</th>
+								<th style="width: 15%"><a class="sorted sortable black1"
+									scope="col ">Order Time</a></th>
+								<th style="width: 15%" scope="col">Delivery Time</th>
+								<th style="width: 15%" scope="col">Customer Id</th>
+								<th style="width: 15%" scope="col">Location</th>
+								<th style="width: 15%" scope="col">Total Price</th>
+								<th style="width: 15%" scope="col">Order Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=order:${pastOrderList}>
+								<td th:text="${order.orderId}"></td>
+								<td
+									th:text="${#dates.format(order.orderTime, 'dd-MM-yyyy HH:mm')}"></td>
+								<td
+									th:text="${#dates.format(order.deliveryTime, 'dd-MM-yyyy HH:mm')}"></td>
+								<td th:text="${order.customerId}"></td>
+								<td th:text="${order.location}"></td>
+								<td th:text="${order.totalCost}"></td>
+								<td th:text="${order.orderStatus}"></td>
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+			<div class="pagination1 mb-md-5 ">
+				<div class="text-center ">
+					<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+					<ul class="pagination ">
+						<li class="disabled "><span><span aria-hidden="true ">«</span></span>
+						</li>
+						<li class="disabled "><span><span aria-hidden="true ">‹</span></span>
+						</li>
+						<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+						</li>
+						<li><a href="# ">2</a></li>
+						<li><a href="# " aria-label="Next "> <span
+								aria-hidden="true ">›</span></a></li>
+						<li><a href="# " aria-label="Latest "> <span
+								aria-hidden="true ">»</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="menu/layout">
+<body>
+
+	<div layout:fragment="content">
+		<div class="container-fluid mt-8">
+
+			<div class=" box-s">
+
+				<div class="container-fluid">
+					<div class="row headtb mt-2">
+						<div class="col-md-6 col-sm-6 col-4 p-0">
+							<h5 class="pt-1 text-md-left">Food Items</h5>
+						</div>
+						<div class="col-md-6 col-sm-6 col-8 p-0">
+							<div class="row  pt-1rem">
+								<div class=" col-12  pr-0">
+									<div class="navbar float-md-right text-sm-center float-right">
+
+										<a th:href="${'/menu/foodItem/new'}"><button
+												type="button" class="btn btn-outline-success"
+												th:disabled="${menulist.isEmpty()}">
+												<i class="fa fa-plus"></i>Create Item
+
+											</button> </a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form class="pl-3 text-container" id="myform"
+					th:action="@{/menu/foodItem/foodItemList}">
+					<div class="row col-12 p-2">
+						<div class=" row more-text2 col-md-3 mt-1">
+							<div class="row">
+
+								<div class="form-group m-0 col-4  text-right p-0 pr-3">
+									<label class="control-label">Food Name</label>
+								</div>
+								<div class="form-group m-0 col-8  p-0 pr-3">
+									<input id="foodItemName" name="foodItemName"
+										th:value="${#httpServletRequest.getParameter('foodItemName')}"
+										type="text" class="form-control" autofocus="autofocus" />
+
+								</div>
+
+							</div>
+						</div>
+
+						<div class="row more-text2 col-md-3">
+							<div class="row ml-md-0 ml-sm-2 text-sm-center ml-sm-19">
+								<div class=" form-group m-0 col-12 mt-1  p-0">
+									<button type="submit"
+										class="btn btn-outline-success btn-pm mr-sm-3 mr-3 float-left">
+										<i class="fa fa-search d-none d-sm-none d-md-inline-block"
+											aria-hidden="true"></i> Search
+									</button>
+									<button type="reset"
+										class="btn reset btn-outline-info btn-pm mr-sm-3 mr-3 float-left">
+										<i
+											class="fas fa-minus-circle d-none d-sm-none d-md-inline-block"></i>
+										Clear
+									</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+
+				<div class="tb">
+					<table class="table vertical-table">
+						<thead>
+							<tr>
+								<th style="width: 10%" scope="col">ID</th>
+								<th style="width: 20%"><a class="sorted sortable black1"
+									scope="col ">Item Name</a></th>
+								<th style="width: 40%" scope="col">Status</th>
+								<th style="width: 10%" scope="col">Item Count</th>
+								<th style="width: 10%" scope="col">Price</th>
+								<th style="width: 10%" scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${menulist.isEmpty()}">
+								<td colspan="6" style="color: red;">Please Create Food Menu</td>
+							</tr>
+							<tr th:each="food : ${foodlist}">
+
+								<td th:text="${food.foodItemId}"></td>
+								<td th:text="${food.foodItemName}"></td>
+								<td th:text="${food.foodItemstatus}"></td>
+								<td th:text="${food.foodItemQuantity}"></td>
+								<td th:text="${food.foodItemPrice}"></td>
+
+								<td>
+									<button type="submit" class="btn btn-outline-success">
+
+										<a th:href="${'/menu/foodItem/edit/'+food.foodItemName}"><i
+											class="fas fa-edit"></i> Edit</a>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+			<div class="pagination1 mb-md-5 ">
+				<div class="text-center ">
+					<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+					<ul class="pagination ">
+						<li class="disabled "><span><span aria-hidden="true ">«</span></span>
+						</li>
+						<li class="disabled "><span><span aria-hidden="true ">‹</span></span>
+						</li>
+						<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+						</li>
+						<li><a href="# ">2</a></li>
+						<li><a href="# " aria-label="Next "> <span
+								aria-hidden="true ">›</span></a></li>
+						<li><a href="# " aria-label="Latest "> <span
+								aria-hidden="true ">»</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

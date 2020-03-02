@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="order/layout">
+<body>
+
+	<div layout:fragment="content">
+		<div class="container-fluid mt-8">
+
+
+
+			<div class=" box-s">
+				<form class="col-12  mt-5"
+					th:action="@{/order/showOrder/}+${orderId}" th:object="${wrapper}"
+					method="post">
+					<div class="container-fluid">
+						<div class="row headtb mt-2">
+							<div class="col-md-6 col-sm-6 col-4 p-0">
+								<h5 class="pt-1 text-md-left">Select Food Quantity</h5>
+							</div>
+							<div class="col-md-6 col-sm-6 col-8 p-0">
+								<div class="row  pt-1rem">
+									<div class=" col-12  pr-0">
+										<div class="navbar float-md-right text-sm-center float-right">
+
+											<button type="submit" class="btn btn-outline-success mr-3">
+												<i class="fa fa-check"></i>Submit
+											</button>
+											<button type="submit" class="btn btn-outline-orange">
+												<a th:href="${'/order/showMenuList/'+orderId}"> <i
+													class="fa fa-times"></i>Cancel
+												</a>
+											</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="tb">
+						<table class="table vertical-table">
+							<thead>
+								<tr>
+									<th style="width: 10%" scope="col">ID</th>
+									<th style="width: 20%"><a class="sorted sortable black1"
+										scope="col ">Item Name</a></th>
+									<th style="width: 20%" scope="col">Status</th>
+									<th style="width: 15%" scope="col">Price</th>
+									<th style="width: 15%" scope="col">Available Quantity</th>
+									<th style="width: 6%" scope="col">Quantity</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="food,iter : *{orderFoodItemDtoList}"
+									th:class="${food.orderFoodItemDtoStatus == 'unavailable'}? 'd-none' : '' ">
+
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoCreatedDate}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoModifiedDate}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoId}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoName}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoStatus}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoPrice}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoQuantity}">
+									<input type="hidden"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoSelectedPrice}">
+
+									<td th:text="${food.orderFoodItemDtoId}"></td>
+									<td th:text="${food.orderFoodItemDtoName}"></td>
+									<td th:text="${food.orderFoodItemDtoStatus}"></td>
+									<td th:text="${food.orderFoodItemDtoPrice}"></td>
+									<td th:text="${food.orderFoodItemDtoQuantity}"></td>
+									<td><input type="text" class="form-control"
+										th:field="*{orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoSelectedQuantity}">
+									</td>
+
+								</tr>
+
+
+
+							</tbody>
+
+						</table>
+
+					</div>
+				</form>
+			</div>
+
+			<div class="pagination1 mb-md-5 ">
+				<div class="text-center ">
+					<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+					<ul class="pagination ">
+						<li class="disabled "><span><span aria-hidden="true ">«</span></span>
+						</li>
+						<li class="disabled "><span><span aria-hidden="true ">‹</span></span>
+						</li>
+						<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+						</li>
+						<li><a href="# ">2</a></li>
+						<li><a href="# " aria-label="Next "> <span
+								aria-hidden="true ">›</span></a></li>
+						<li><a href="# " aria-label="Latest "> <span
+								aria-hidden="true ">»</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

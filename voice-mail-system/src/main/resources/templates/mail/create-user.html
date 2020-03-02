@@ -1,0 +1,75 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="mail/layout">
+<body>
+
+	<div layout:fragment="content">
+		<div class="container-fluid mt-8">
+			<div class="bg">
+				<div class="container-fluid">
+					<div class="row bb mt-2">
+						<div class="col-md-6 col-sm-12 p-0 ">
+							<h5 class="pt-1 mb-0">Create User</h5>
+						</div>
+
+					</div>
+
+					<div class="row  d-flex justify-content-center mt-4">
+
+						<form class="col-md-6  mt-5" th:action="@{/mail/verify}"
+							th:object="${user}" method="post">
+
+
+
+							<div th:if="${#fields.hasErrors()}"
+								class="has-error alert alert-dismissible alert-danger">
+								<ul>
+									<li th:each="e : ${#fields.detailedErrors()}"
+										th:class="${e.global}? globalerr : fielderr"><span
+										th:text="${e.message}">The error message</span></li>
+								</ul>
+							</div>
+
+							<div class="form-group row mt-5">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">User
+									Name</label>
+								<div class="col-sm-5">
+									<input type="hidden" th:field="*{userName}"> <input
+										type="text" class="form-control notsplcha"
+										th:field="*{userName}">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Password</label>
+								<div class="col-sm-5">
+									<input type="hidden" th:field="*{userPassword}"> <input
+										type="text" class="form-control notsplcha"
+										th:field="*{userPassword}">
+								</div>
+							</div>
+							<div class="col-md-10 text-center pb-4">
+								<div class="form-group">
+									<button type="submit" class="btn btn-success btn-pm  md-margin">
+										<i class="fas fa-check"></i> Submit
+									</button>
+									<button type="reset" class="btn btn-info ml-3 btn-pm">
+										<i class="fas fa-minus-circle"></i> Reset
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</body>
+
+</html>

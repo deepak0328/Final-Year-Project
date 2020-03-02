@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="menu/layout">
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="container-fluid mt-8">
+			<div class="bg">
+				<div class="container-fluid">
+					<div class="row bb mt-2">
+						<div class="col-md-6 col-sm-12 p-0 ">
+							<h5 class="pt-1 mb-0">Edit Item</h5>
+						</div>
+
+					</div>
+
+					<div class="row  d-flex justify-content-center mt-4">
+
+						<form class="col-md-6  mt-5" th:object="${editFoodItemDto}"
+							th:action="@{/menu/foodItem/new}" method="post">
+							<div class="form-group row mt-3">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Item
+									Name</label>
+								<div class="col-sm-5">
+									<input type="hidden" th:field="*{foodItemDtoId}"><input
+										type="hidden" class="form-control" th:field="*{foodItemDtoCreatedDate}">
+									<input type="hidden" class="form-control"
+										th:field="*{foodItemDtoModifiedDate}"> <input type="text"
+										class="form-control" th:field="*{foodItemDtoName}">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Quantity</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" th:field="*{foodItemDtoAvailableQuantity}">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Price</label>
+								<div class="col-sm-5">
+									<input type="text" class="form-control" th:field="*{foodItemDtoPrice}">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Item
+									Status</label>
+								<div class="col-sm-5">
+									<select class="form-control" th:field="*{foodItemDtoStatus}">
+										<option th:value="available" th:text="available"></option>
+										<option th:value="unavailable" th:text="unavailable"></option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label
+									class="col-sm-4 col-md-3 col-form-label pl-md-5 text-right xl-right">Menu</label>
+								<div class="col-sm-5 menu-list">
+									<ul class="ml-4">
+										<li th:each="menu : ${foodMenuList}"><label
+											class="form-check-lable pr-3"> <input type="radio"
+												th:if="${#lists.size(foodMenuList) == 1}"
+												th:text="${menu.foodMenuName}" th:value="${menu.foodMenuId}"
+												th:field="*{foodMenuListId}" class="form-check-input mr-1"
+												th:checked="${true}"> <input type="radio"
+												th:unless="${#lists.size(foodMenuList) == 1}"
+												th:text="${menu.foodMenuName}" th:value="${menu.foodMenuId}"
+												th:field="*{foodMenuListId}" class="form-check-input mr-1">
+
+										</label></li>
+
+									</ul>
+								</div>
+
+							</div>
+
+
+							<div class="col-md-10 text-center pb-4">
+								<div class="form-group">
+									<button type="submit" class="btn btn-success btn-pm  md-margin">
+										<i class="fas fa-check"></i> Submit
+									</button>
+									<button type="reset" class="btn btn-info ml-3 btn-pm">
+										<i class="fas fa-minus-circle"></i> Reset
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="delivery/layout">
+
+<body>
+	<div th:fragment="common-scripts">
+		<script src="../../static/scripts/jquery.min.js"
+			th:src="@{/scripts/jquery.min.js}"></script>
+		<script src="../../static/scripts/bootstrap.min.js"
+			th:src="@{/scripts/bootstrap.min.js}"></script>
+	</div>
+</body>
+</html>

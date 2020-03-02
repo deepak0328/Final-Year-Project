@@ -1,0 +1,40 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="order/layout">
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="container-fluid mt-8">
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 row bb">
+						<div class="col-12">
+							<h4 class="mb-0">Select Food Items</h4>
+						</div>
+
+					</div>
+					<div class="col-12 px-5">
+						<ul class="p-5">
+							<li th:each="menu : ${menuList}" class="px-5 mb-2"
+								style="list-style: none; float: left;"><a
+								th:href="${'/order/addItem/'+{orderId}+'/'+menu.foodMenuName}"
+								class="btn-outline-litegreen btn" th:text="${menu.foodMenuName}">Menu
+									1 <i class="fas fa-chevron-right"></i>
+							</a></li>
+
+						</ul>
+
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+</html>

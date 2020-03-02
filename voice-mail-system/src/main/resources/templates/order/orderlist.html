@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="order/layout">
+<body>
+
+	<div layout:fragment="content">
+		<div class="container-fluid mt-8">
+
+
+
+			<div class=" box-s">
+
+				<div class="container-fluid">
+					<div class="row headtb mt-2">
+						<div class="col-md-6 col-sm-6 col-4 p-0">
+							<h5 class="pt-1 text-md-left">My Orders</h5>
+						</div>
+						<div class="col-md-6 col-sm-6 col-8 p-0">
+							<div class="row  pt-1rem">
+								<div class=" col-12  pr-0">
+									<div class="navbar float-md-right text-sm-center float-right">
+
+										<a th:href="${'/order/createOrder'}"><button
+												class="btn btn-outline-success" type="button"
+												th:disabled="${menuList.isEmpty()}">
+												<i class="fa fa-plus"></i>Order Food
+
+											</button> </a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form class="pl-3 text-container" id="myform"
+					th:action="@{/order/orderList}">
+					<div class="row col-12 p-2">
+						<div class="row more-text2 col-md-4 mt-2">
+							<div class="row">
+								<div class="form-group m-0 col-4 text-right p-0 pr-3">
+									<label for="orderTime" class="control-label">Order Date
+										From</label>
+								</div>
+								<div class="form-group m-0 col-8 p-0 pr-3">
+									<input id="orderDateFrom" name="orderDateFrom"
+										th:value="${#httpServletRequest.getParameter('orderDateFrom')}"
+										type="text" class="datepicker form-control"
+										placeholder="dd-MM-yyyy" autocomplete="off" />
+
+								</div>
+							</div>
+						</div>
+						<div class="row more-text2 col-md-4 mt-2">
+							<div class="row">
+								<div class="form-group m-0 col-4 text-right p-0 pr-3">
+									<label for="orderTime" class="control-label">Order Date
+										To</label>
+								</div>
+								<div class="form-group m-0 col-8 p-0 pr-3">
+									<input id="orderDateTo" name="orderDateTo"
+										th:value="${#httpServletRequest.getParameter('orderDateTo')}"
+										type="text" class="datepicker form-control"
+										placeholder="dd-MM-yyyy" autocomplete="off" />
+
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row more-text2 col-md-3">
+							<div class="row ml-md-0 ml-sm-2 text-sm-center ml-sm-19">
+								<div class=" form-group m-0 col-12 mt-1  p-0">
+									<button type="submit"
+										class="btn btn-outline-success btn-pm mr-sm-3 mr-3 float-left">
+										<i class="fa fa-search d-none d-sm-none d-md-inline-block"
+											aria-hidden="true"></i> Search
+									</button>
+									<button type="button"
+										class="btn reset btn-outline-info btn-pm mr-sm-3 mr-3 float-left">
+										<i
+											class="fas fa-minus-circle d-none d-sm-none d-md-inline-block"></i>
+										Clear
+									</button>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+
+				<div class="tb">
+					<table class="table vertical-table">
+						<thead>
+							<tr>
+								<th style="width: 10%" scope="col">ID</th>
+								<th style="width: 20%" scope="col">Order Time</th>
+								<th style="width: 20%" scope="col">Delivery Time</th>
+								<th style="width: 15%" scope="col">Total Cost</th>
+								<th style="width: 15%" scope="col">Status</th>
+								<th style="width: 15%" scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="order : ${orderlist}">
+								<td><a th:href="${'/order/view/'+order.orderId}"
+									th:text="${order.orderId}"></a></td>
+								<td
+									th:text="${#dates.format(order.orderTime,'dd-MM-yyyy HH:mm')}" />
+								<td
+									th:text="${#dates.format(order.deliveryTime,'dd-MM-yyyy HH:mm')}" />
+								<td th:text="${order.totalCost}"></td>
+								<td th:text="${order.orderStatus}"></td>
+
+								<td><a
+									th:class="${order.orderStatus == 'order placed'}? 'btn btn-outline-danger' : 'd-none'"
+									th:href="${'/order/cancel/'+order.orderId}"> <i
+										class="fas fa-times"></i> Cancel
+								</a></td>
+							</tr>
+
+
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+			<div class="pagination1 mb-md-5 ">
+				<div class="text-center ">
+					<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+					<ul class="pagination ">
+						<li class="disabled "><span><span aria-hidden="true ">«</span></span>
+						</li>
+						<li class="disabled "><span><span aria-hidden="true ">‹</span></span>
+						</li>
+						<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+						</li>
+						<li><a href="# ">2</a></li>
+						<li><a href="# " aria-label="Next "> <span
+								aria-hidden="true ">›</span></a></li>
+						<li><a href="# " aria-label="Latest "> <span
+								aria-hidden="true ">»</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

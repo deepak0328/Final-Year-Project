@@ -1,0 +1,239 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="order/layout">
+
+<body>
+
+	<div layout:fragment="content">
+		<form th:object="${orderFoodItemDto}"
+			th:action="@{/order/confirm/}+${orderFoodItemDto.order.orderId}"
+			method="post">
+			<div class="container-fluid mt-8">
+
+				<div class="container-fluid">
+					<div class="row mt-2">
+						<div class="bb row">
+							<div class="col-md-6 col-12 px-4 ">
+								<h5 class="pt-1 mb-0">Add Food</h5>
+							</div>
+							<div class="col-md-6 col-12 pb-2">
+								<div class="row  pt-1rem">
+									<div class=" col-12  pr-0">
+										<div class="navbar float-md-right text-sm-center float-right ">
+											<a data-toggle="modal" data-target="#location">
+												<button type="button"
+													th:disabled="${orderFoodItemDto.orderFoodItemDtoList.isEmpty()}"
+													class="btn btn-outline-success mr-3"
+													data-target="#location" data-toggle="modal">
+													<i class="fa fa-check"></i>Submit
+												</button>
+											</a> <a
+												th:href="${'/order/cancel/'+{orderFoodItemDto.order.orderId}}"
+												class="btn btn-outline-orange"> <i class="fa fa-times"></i>Cancel
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 row px-5">
+							<div class="col-4 row">
+								<div class="col-12">
+									OrderId<span class="pl-4"><span
+										th:text="${orderFoodItemDto.order.orderId}"></span></span> <input
+										type="hidden" th:field="*{order.orderId}">
+								</div>
+
+								<div class="col-12 row">
+									<div class="col-3">Order Status</div>
+
+									<b><span class="pl-1"><span
+											th:text="${orderFoodItemDto.order.orderStatus}"></span></span></b> <input
+										type="hidden" th:field="*{order.orderStatus}">
+								</div>
+							</div>
+
+							<div class="col-4 row">
+
+								<input type="hidden" th:field="*{order.orderTime}"> <input
+									type="hidden" th:field="*{order.deliveryTime}">
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class=" box-s">
+					<div class="container-fluid">
+						<div class="row headtb mt-2">
+							<div class="col-md-6 col-sm-6 col-4 p-0">
+								<h5 class="pt-1 text-md-left">Food Items</h5>
+							</div>
+							<div class="col-md-6 col-sm-6 col-8 p-0">
+								<div class="row  pt-1rem">
+									<div class=" col-12  pr-0">
+										<div class="navbar float-md-right text-sm-center float-right">
+
+											<a
+												th:href="${'/order/showMenuList/'+{orderFoodItemDto.order.orderId}}"
+												class="btn btn-outline-success"> <i class="fa fa-plus"></i>Add
+												Food
+											</a>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tb">
+						<table class="table vertical-table">
+							<thead>
+								<tr>
+									<th style="width: 20%" scope="col">ID</th>
+									<th style="width: 20%"><a class="sorted sortable black1"
+										scope="col ">Food Name</a></th>
+									<th style="width: 20%" scope="col">Quantity</th>
+									<th style="width: 20%" scope="col">Price</th>
+									<th style="width: 20%">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="food, iter :  ${orderFoodItemDto.orderFoodItemDtoList}">
+
+									<td th:text="${food.orderFoodItemDtoId}"></td>
+									<td th:text="${food.orderFoodItemDtoName}"></td>
+									<td><div class="input-group">
+											<div class="input-group-btn">
+												<a
+													th:class="${food.orderFoodItemDtoSelectedQuantity == 1}? 'd-none' : 'btn'"
+													th:href="${'/order/'+{orderFoodItemDto.order.orderId}+'/decrement/'+{orderFoodItemDto.orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoId}}">
+													<i class="fas fa-minus" style="color: crimson;"></i>
+												</a>
+											</div>
+											<input type="text" id="myNumber" disabled
+												class="input-number" th:value="${food.orderFoodItemDtoSelectedQuantity}"
+												style="border: none; text-align: center; background: none; width: 9%;" />
+											<div class="input-group-btn">
+												<a th:class="${food.orderFoodItemDtoQuantity == food.orderFoodItemDtoSelectedQuantity}? 'd-none' : 'btn'"
+													th:href="${'/order/'+{orderFoodItemDto.order.orderId}+'/increment/'+{orderFoodItemDto.orderFoodItemDtoList[__${iter.index}__].orderFoodItemDtoId}}">
+													<i class="fas fa-plus" style="color: green;"></i>
+												</a>
+											</div>
+										</div></td>
+									<td class="pl-5"><span th:text="${food.orderFoodItemDtoSelectedPrice}"></span></td>
+									<td>
+										<button type="button" class="btn" data-toggle="modal"
+											th:attr="data-target='#delete-food'+${food.orderFoodItemDtoName}">
+											<i class="fas fa-trash-alt"></i>
+										</button>
+
+									</td>
+									<td>
+										<div class="modal fade" th:id="delete-food+${food.orderFoodItemDtoName}"
+											tabindex="-1" role="dialog"
+											aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLongTitle">Delivery
+															Details</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body text-center">
+														<p>
+															Are you sure you want to delete the <span
+																th:text="${food.orderFoodItemDtoName}"></span> item from order id <span
+																th:text="${orderFoodItemDto.order.orderId}"></span> ?
+														</p>
+													</div>
+													<div class=" text-center mb-4">
+
+														<a class="btn btn-success btn-pm  md-margin"
+															th:href="${'/order/'+{orderFoodItemDto.order.orderId}+'/remove/'+{food.orderFoodItemDtoId}}">
+															<i class="fas fa-check"></i> Confirm
+														</a>
+
+
+														<button data-dismiss="modal"
+															class="btn btn-info ml-3 btn-pm">
+															<i class="fas fa-minus-circle"></i> Cancel
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+
+							</tbody>
+
+						</table>
+
+					</div>
+				</div>
+
+				<div class="pagination1 mb-md-5 ">
+					<div class="text-center ">
+						<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+						<ul class="pagination ">
+							<li class="disabled "><span><span aria-hidden="true ">«</span></span>
+							</li>
+							<li class="disabled "><span><span aria-hidden="true ">‹</span></span>
+							</li>
+							<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+							</li>
+							<li><a href="# ">2</a></li>
+							<li><a href="# " aria-label="Next "> <span
+									aria-hidden="true ">›</span></a></li>
+							<li><a href="# " aria-label="Latest "> <span
+									aria-hidden="true ">»</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal fade" id="location" tabindex="-1" role="dialog"
+				aria-labelledby="locationTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLongTitle">Delivery
+								Details</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p class="mb-0">Location</p>
+							<textarea rows="4" cols="50" name="location" required id="location"
+								th:field="*{order.location}"></textarea>
+						</div>
+						<div class=" text-center mb-4">
+							<button type="submit" class="btn btn-success btn-pm  md-margin">
+								<i class="fas fa-check"></i> Confirm
+							</button>
+							<button data-dismiss="modal" class="btn btn-info ml-3 btn-pm">
+								<i class="fas fa-minus-circle"></i> Cancel
+							</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</body>
+
+</html>

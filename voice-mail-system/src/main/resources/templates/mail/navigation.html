@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="menu/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+	<div th:fragment="main-nav">
+		<nav class="navbar navbar-expand-md navbar-dark fixed-top  bg-dark">
+			<a class="navbar-brand" href="../index.html">COS</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarCollapse" aria-controls="navbarCollapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mr-auto">
+					<li
+						th:class="${activeNav == 'menulist'}? 'nav-item active' :'nav-item'"><a
+						class="nav-link" th:href="${'/menu/menuList'}"> <i
+							class="fas fa-utensils"></i> Food Menu<span class="sr-only">(current)</span></a></li>
+					<li
+						th:class="${activeNav == 'foodlist'}? 'nav-item active' :'nav-item'"><a
+						class="nav-link" th:href="${'/menu/foodItem/foodItemList'}"> <i
+							class="fas fa-hamburger"></i> Food Item
+					</a></li>
+
+					<li class="nav-item dropdown hidenav brl bg-dark"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown01"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-th pt-1" aria-hidden="true"></i>Other Apps
+					</a>
+						<div class="dropdown-menu dropdown-menu-right drop-app mt-2 pl-3">
+							<div class="app-cont p-0">
+								<a class="dropdown-item in-block" th:href="${'/menu/menuList'}">
+									<div class="app-title">Food Menu</div>
+								</a>
+							</div>
+							<div class="app-cont  p-0">
+								<a class="dropdown-item in-block" th:href="${'/menu/foodItem/foodItemList'}">
+
+									<div class="app-title">Food Item</div>
+								</a>
+							</div>
+							<div class="app-cont  p-0">
+								<a class="dropdown-item in-block"
+									th:href="${'/order/activeOrderList'}">
+									<div class="app-title">Active Orders</div>
+								</a>
+							</div>
+							<div class="app-cont  p-0">
+								<a class="dropdown-item in-block"
+									th:href="${'/order/pastOrderList'}">
+									<div class="app-title">Past Orders</div>
+								</a>
+							</div>
+							<div class="app-cont  p-0">
+								<a class="dropdown-item in-block"
+									th:href="${'/order/pastOrderList'}">
+									
+									<div class="app-title">Delivery</div>
+								</a>
+							</div>
+
+						</div></li>
+					<form>
+						<li class="nav-item hidenav pl-6"><img class="logout"
+							th:src="@{/images/user-icon.svg}"> <a
+							class="nav-link padall" href="users.html">Karthik
+								Muthukumarasamy</a></li>
+						<li class="nav-item hidenav pb-2"><a class="nav-link "
+							href="users.html"> <i class="fa  fa-sign-out-alt"
+								aria-hidden="true"></i>Logout
+						</a></li>
+					</form>
+
+				</ul>
+				<ul class="nav navbar-nav navbar2 flex-row ml-auto hidedesk">
+					<li class="nav-item dropdown"><a class="nav-links " href="#"
+						id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <i class="fa fa-th fa-2x pt-1"
+							aria-hidden="true"></i>
+					</a>
+						<div class="dropdown-menu dropdown-menu-right drop-app box-s">
+							<div class="app-cont">
+								<a th:href="${'/menu/menuList'}">
+									<div class="app-title">
+										<i class="fas fa-utensils"></i> Food Menu
+									</div>
+								</a>
+							</div>
+							<div class="app-cont">
+								<a th:href="${'/menu/foodItem/foodItemList'}">
+									<div class="app-title">
+										<i class="fas fa-hamburger"></i> Food Item
+									</div>
+								</a>
+							</div>
+							<div class="app-cont">
+								<a th:href="${'/order/activeOrderList'}">
+									<div class="app-title">
+										<i class="fas fa-hourglass-start"></i> Active Orders
+									</div>
+								</a>
+							</div>
+							<div class="app-cont">
+								<a th:href="${'/order/pastOrderList'}">
+									<div class="app-title">
+										<i class="fas fa-hourglass-end"></i> Past Orders
+									</div>
+								</a>
+							</div>
+							<div class="app-cont">
+								<a th:href="${'/order/pastOrderList'}">
+									<div class="app-title">
+										<i class="fas fa-biking"></i> Delivery
+									</div>
+								</a>
+							</div>
+						</div></li>
+					<li class="nav-item dropdown hidedesk"><a class="nav-links "
+						href="http://example.com" id="dropdown01" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><img class="logout"
+							th:src="@{/images/user-icon.svg}"></a>
+						<div class="dropdown-menu dropdown-menu-right box-s"
+							aria-labelledby="dropdown01">
+							<a class="dropdown-item bb" href="#">Karthik Muthukumarasamy</a>
+							<a class="dropdown-item" href="#">Logout</a>
+						</div></li>
+				</ul>
+
+			</div>
+		</nav>
+	</div>
+</body>
+</html>

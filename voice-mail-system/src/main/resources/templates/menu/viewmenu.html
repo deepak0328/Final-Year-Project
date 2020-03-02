@@ -1,0 +1,138 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sd="http://www.thymeleaf.org/spring-data"
+	layout:decorator="menu/layout">
+<body>
+
+	<div layout:fragment="content">
+
+		<div class="container-fluid mt-8">
+
+
+			<div class="container-fluid">
+				<div class="row mt-2">
+					<div class="col-md-12 col-sm-12 px-4 ">
+						<h5 class="pt-1  bb mb-0">View Menu</h5>
+					</div>
+					<div class="col-12 px-5">
+						<p class="mb-0 pt-3">
+							Menu Name <span class="pl-4"><span th:text="${menuName}"></span></span>
+						</p>
+						<p>
+							Menu Status <span class="pl-4"><span
+								th:text="${menuStatus}"></span></span>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class=" box-s">
+				<div class="container-fluid">
+					<div class="row headtb mt-2">
+						<div class="col-md-12 col-sm-12 col-12 p-0">
+							<h5 class="pt-1 text-md-left">Food Items</h5>
+						</div>
+
+					</div>
+				</div>
+
+
+				<div class="tb">
+					<table class="table vertical-table">
+						<thead>
+							<tr>
+								<th style="width: 10%" scope="col">ID</th>
+								<th style="width: 20%"><a class="sorted sortable black1"
+									scope="col ">Food Name</a></th>
+								<th style="width: 40%" scope="col">Status</th>
+								<th style="width: 15%" scope="col">Item Count</th>
+								<th style="width: 15%" scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="fooditem : ${viewFoodItemList}">
+								<td th:text="${fooditem.foodItemId}"></td>
+								<td th:text="${fooditem.foodItemName}"></td>
+								<td th:text="${fooditem.foodItemstatus}"></td>
+								<td th:text="${fooditem.foodItemQuantity}"></td>
+								<td>
+									<button type="button" class="btn" data-toggle="modal"
+										data-target="#modal-warning"
+										th:attr="data-target='#delete-food'+${fooditem.foodItemName}">
+										<i class="fas fa-trash-alt"></i>
+									</button>
+								</td>
+								<td>
+									<div class="modal fade"
+										th:id="delete-food+${fooditem.foodItemName}" tabindex="-1"
+										role="dialog" aria-labelledby="exampleModalCenterTitle"
+										aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLongTitle">Delete
+														Item</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body text-center">
+													<p>
+														Are you sure you want to delete the <span
+															th:text="${fooditem.foodItemName}"></span> item from <span
+															th:text="${menuName}"></span> ?
+													</p>
+
+												</div>
+												<div class=" text-center mb-4">
+
+													<a
+														th:href="${'/menu/'+{menuName}+'/delete/'+{fooditem.foodItemName}}"><button
+															class="btn btn-success btn-pm  md-margin">
+															<i class="fas fa-check"></i> Confirm
+														</button></a>
+
+													<button data-dismiss="modal"
+														class="btn btn-info ml-3 btn-pm">
+														<i class="fas fa-minus-circle"></i> Cancel
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				</div>
+			</div>
+			<div class="pagination1 mb-md-5 ">
+				<div class="text-center ">
+					<div class="pt-2 ">Showing 1 to 5 of 9 entries</div>
+
+					<ul class="pagination ">
+						<li class="disabled "><span><span aria-hidden="true ">«</span></span>
+						</li>
+						<li class="disabled "><span><span aria-hidden="true ">‹</span></span>
+						</li>
+						<li class="active "><span>1<span class="sr-only ">(current)</span></span>
+						</li>
+						<li><a href="# ">2</a></li>
+						<li><a href="# " aria-label="Next "> <span
+								aria-hidden="true ">›</span></a></li>
+						<li><a href="# " aria-label="Latest "> <span
+								aria-hidden="true ">»</span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>
